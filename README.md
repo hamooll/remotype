@@ -6,7 +6,7 @@
 
 **Type it where paste can't.** A small Chrome extension that types text **key by key** into remote web consoles: the VMware vSphere / vCenter web console, noVNC (Proxmox and similar) and other canvas-based consoles where Ctrl+V does nothing.
 
-[فارسی](README.fa.md) · [Compatibility](docs/compatibility.md) · [Troubleshooting](docs/troubleshooting.md) · [Changelog](CHANGELOG.md)
+[فارسی](README.fa.md) · [Usage guide](docs/usage.md) · [Compatibility](docs/compatibility.md) · [Troubleshooting](docs/troubleshooting.md) · [Changelog](CHANGELOG.md)
 
 ![License: MIT](https://img.shields.io/badge/license-MIT-blue)
 ![Manifest V3](https://img.shields.io/badge/Chrome-Manifest%20V3-4285F4)
@@ -60,6 +60,8 @@ Requires Chrome or a Chromium-based browser, version 116 or newer.
 2. Open Remotype, paste the text, choose the layout of the **target machine** and press **Type** (or Ctrl+Enter).
 
 The layout you choose must match the layout configured inside the remote machine. In the vSphere web console the **Enforce US Keyboard Layout** button forces US.
+
+Full guide (popup vs side panel, snippets, settings, session): [docs/usage.md](docs/usage.md), also in [Persian](docs/usage.fa.md).
 
 ## Keyboard layouts
 

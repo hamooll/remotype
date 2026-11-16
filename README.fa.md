@@ -6,7 +6,7 @@
 
 **آن‌جا که paste کار نمی‌کند، تایپ کن.** یک افزونه کوچک کروم که متن را **کلید به کلید** در کنسول‌های وب راه‌دور تایپ می‌کند: کنسول وب VMware vSphere و vCenter، noVNC (Proxmox و مشابه) و دیگر کنسول‌های مبتنی بر canvas که Ctrl+V در آن‌ها اثری ندارد.
 
-[English](README.md) · [سازگاری](docs/compatibility.md) · [عیب‌یابی](docs/troubleshooting.md) · [تاریخچه تغییرات](CHANGELOG.md)
+[English](README.md) · [راهنمای استفاده](docs/usage.fa.md) · [سازگاری](docs/compatibility.md) · [عیب‌یابی](docs/troubleshooting.fa.md) · [تاریخچه تغییرات](CHANGELOG.md)
 
 ## مشکل
 
@@ -56,6 +56,8 @@ Remotype راه‌حلِ «انسان در حلقه» برای کنسول‌ها
 2. Remotype را باز کن، متن را بچسبان، چیدمان **ماشین مقصد** را انتخاب کن و **Type** (یا Ctrl+Enter) را بزن.
 
 چیدمانی که انتخاب می‌کنی باید با چیدمان تنظیم‌شده داخل ماشین راه‌دور یکی باشد. در کنسول وب vSphere دکمه **Enforce US Keyboard Layout** چیدمان را روی US می‌گذارد.
+
+راهنمای کامل (پاپ‌آپ در برابر پنل کناری، قطعه‌ها، تنظیمات، نشست): [docs/usage.fa.md](docs/usage.fa.md)، به انگلیسی هم [docs/usage.md](docs/usage.md).
 
 ## چیدمان‌ها
 

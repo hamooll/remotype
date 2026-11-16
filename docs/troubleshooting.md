@@ -1,5 +1,7 @@
 # Troubleshooting
 
+[فارسی](troubleshooting.fa.md) · [Usage guide](usage.md) · [Back to README](../README.md)
+
 ## Nothing is typed
 
 - **Click inside the console first** so it has keyboard focus, then open Remotype and press Type.
