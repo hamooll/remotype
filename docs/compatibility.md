@@ -13,6 +13,7 @@ Status meanings: **Confirmed** = someone typed text successfully and reported it
 | Proxmox VE (noVNC) | Untested | |
 | noVNC standalone | Untested | |
 | IONOS / Plesk noVNC consoles | Untested | |
+| Plain text field in a normal web page | **Confirmed** | Reported by the author. Not a console, but it shows the keyboard events reach whatever element has focus |
 | Other canvas-based remote consoles | Untested | |
 
 ## Keyboard layouts
