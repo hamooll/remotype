@@ -1,9 +1,9 @@
 {
   "name": "remotype",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "description": "Chrome extension that types text key by key into web consoles where paste does not work.",
   "type": "module",
   "license": "MIT",
-  "scripts": { "test": "node test-keymap.mjs" }
+  "scripts": { "test": "node test-keymap.mjs && node test-background.mjs" }
 }

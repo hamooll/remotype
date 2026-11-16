@@ -29,7 +29,7 @@ You click inside the console, paste your text into Remotype and press **Type**. 
 ## Features
 
 - Types commands, tokens and multi-line scripts into the focused console
-- Popup **or side panel**; the side panel stays open while you click around the console
+- Popup **or side panel**; the side panel stays open and connected while you click around the console and run many commands
 - Keyboard layouts: **US**, UK, German, French (UK, German and French are experimental)
 - Adjustable delay between keys, pause after Enter and start delay
 - Progress badge on the toolbar icon and a **Stop** button
@@ -66,7 +66,12 @@ Dead keys (for example `^` and `´` on German, `^` and `¨` on French) are not s
 
 ## How it works
 
-For the duration of one typing job, Remotype attaches Chrome's debugger to the **active tab only** and sends `Input.dispatchKeyEvent` events for each key, then detaches. Chrome shows a *"started debugging this browser"* bar while this happens; that is expected. There are no content scripts and no host permissions, so Remotype can do nothing on a page until you press Type.
+Remotype attaches Chrome's debugger to the **active tab only** and sends `Input.dispatchKeyEvent` events for each key.
+
+- **Popup:** it attaches for one typing job and detaches when the job ends.
+- **Side panel (default behaviour):** it attaches on the first Type and stays connected, so a sequence of commands does not make the page jump each time. The panel shows a green "Connected" row with a **Disconnect** button. It disconnects when you press Disconnect, close the panel, press Cancel on Chrome's bar, or after the idle time (15 minutes by default, configurable). You can turn this off with "Stay connected while this panel is open" in the panel settings, which makes the panel behave like the popup.
+
+Chrome shows a *"started debugging this browser"* bar whenever the debugger is attached; that is expected. There are no content scripts and no host permissions, so Remotype can do nothing on a page until you press Type.
 
 ## Compared with other tools
 
@@ -91,10 +96,10 @@ The console is a remote display that only forwards keyboard events. Your browser
 It sends standard keyboard events, so it should, but only the vCenter web console has been confirmed. Reports are welcome; see [compatibility](docs/compatibility.md).
 
 **Is it safe? Why does it need the debugger permission?**
-Sending trusted keyboard events to a canvas requires Chrome's debugger API. Remotype attaches only to the active tab while typing, has no host permissions, makes no network requests and the code is short enough to read in one sitting. See [SECURITY.md](SECURITY.md).
+Sending trusted keyboard events to a canvas requires Chrome's debugger API. Remotype attaches only to the active tab (during a popup job, or while a side-panel session is connected), has no host permissions, makes no network requests and the code is short enough to read in one sitting. See [SECURITY.md](SECURITY.md).
 
 **Why does Chrome show "started debugging this browser"?**
-That is Chrome's built-in notice whenever an extension uses the debugger. It disappears when typing finishes.
+That is Chrome's built-in notice whenever an extension uses the debugger. In the popup it goes away when typing finishes. In the side panel it stays while the session is connected (use Disconnect, or close the panel, to end it).
 
 **Can I type text in Persian, Arabic or other scripts?**
 No. Remotype sends physical keys of the chosen Latin layout, so only characters on that layout can be typed.

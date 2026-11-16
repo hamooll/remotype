@@ -4,8 +4,8 @@ Remotype uses Chrome's `debugger` permission, which is powerful, so security rep
 
 ## What the extension can and cannot do
 
-- It attaches the Chrome debugger to the **active tab only**, and only while a typing job runs, then detaches.
-- It requests the permissions `debugger`, `storage` and `sidePanel`. It has **no host permissions and no content scripts**.
+- It attaches the Chrome debugger to the **active tab only**. From the popup it is attached only while a typing job runs. In the side panel it stays attached from the first Type until you press Disconnect, close the panel, press Cancel on Chrome's debugging bar, or the idle timeout (15 minutes by default) expires. Chrome shows its debugging bar the whole time the debugger is attached, and the panel shows a "Connected" row.
+- It requests the permissions `debugger`, `storage`, `sidePanel` and `alarms` (used only for the idle timeout). It has **no host permissions and no content scripts**.
 - It makes **no network requests** and has no analytics.
 - Text you type is held in memory for the job and is **not stored**. Only snippets you save explicitly are kept in `chrome.storage.local`.
 - Settings and snippets are not synced.

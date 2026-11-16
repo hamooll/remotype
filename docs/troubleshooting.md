@@ -23,7 +23,9 @@
 
 ## Chrome shows "started debugging this browser"
 
-That is Chrome's notice whenever an extension uses the debugger. It is shown only while Remotype is typing. Clicking Cancel on that bar stops the typing.
+That is Chrome's notice whenever an extension uses the debugger. With the popup it is shown only while Remotype is typing. With the side panel it stays while the session is connected (the panel shows a green "Connected" row); press **Disconnect**, close the panel, or wait for the idle timeout to end it. Clicking Cancel on Chrome's bar also disconnects and stops any typing.
+
+If you want the bar to go away after every command, turn off "Stay connected while this panel is open" in the panel settings. While connected, DevTools cannot be opened on the same tab.
 
 ## Typing went to the wrong tab
 

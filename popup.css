@@ -8,6 +8,11 @@ body {
 h1 { font-size: 15px; margin: 0; }
 .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
 .tools { display: flex; gap: 6px; }
+.conn {
+  display: flex; justify-content: space-between; align-items: center; gap: 8px;
+  margin: 6px 0; padding: 6px 8px; border-radius: 6px;
+  background: #0f2a1a; color: #86efac; border: 1px solid #14532d;
+}
 .panel body { width: auto; min-height: 100vh; }
 .panel textarea { height: 200px; }
 select {

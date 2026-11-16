@@ -18,6 +18,10 @@
     <button id="stop" class="danger" hidden data-i18n="stop"></button>
   </div>
   <div id="status" class="status"></div>
+  <div id="conn" class="conn" hidden>
+    <span data-i18n="connected"></span>
+    <button id="disconnect" class="small" data-i18n="disconnect"></button>
+  </div>
 
   <details id="snipBox" open>
     <summary data-i18n="snippets"></summary>
@@ -39,6 +43,8 @@
     <label><span data-i18n="lineDelay"></span> <input id="lineDelay" type="number" min="0" max="3000" /></label>
     <label><span data-i18n="startDelay"></span> <input id="startDelay" type="number" min="0" max="10" /></label>
     <label class="chk"><input id="appendEnter" type="checkbox" /> <span data-i18n="appendEnter"></span></label>
+    <label class="chk"><input id="keepConnected" type="checkbox" /> <span data-i18n="keepConnected"></span></label>
+    <label><span data-i18n="idleMinutes"></span> <input id="idleMinutes" type="number" min="1" max="240" /></label>
   </details>
 
   <div class="hint" data-i18n="hint"></div>

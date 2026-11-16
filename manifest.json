@@ -1,10 +1,10 @@
 {
   "manifest_version": 3,
   "name": "Remotype",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Type it where paste can't: types text key by key into vSphere, noVNC and Proxmox web consoles.",
   "minimum_chrome_version": "116",
-  "permissions": ["debugger", "storage", "sidePanel"],
+  "permissions": ["debugger", "storage", "sidePanel", "alarms"],
   "action": {
     "default_title": "Remotype",
     "default_popup": "popup.html"

@@ -2,6 +2,17 @@
 
 All notable changes to this project are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [Semantic Versioning](https://semver.org/).
 
+## [1.2.0]
+
+### Added
+- Connected session in the side panel: the debugger stays attached between commands (no page jump on every command), with a "Connected" indicator, a Disconnect button and an "ON" badge on the toolbar icon.
+- Automatic disconnect when the panel is closed, after an idle time (15 minutes by default, configurable) or when you press Cancel on Chrome's bar. The popup still attaches per job.
+- Setting "Stay connected while this panel is open" to switch the session behaviour off.
+- Automated tests for the attach / detach / session logic against a mocked Chrome API (`node test-background.mjs`).
+
+### Changed
+- New permission: `alarms` (only for the idle timeout).
+
 ## [1.1.0]
 
 ### Added

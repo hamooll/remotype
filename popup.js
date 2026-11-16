@@ -2,7 +2,16 @@ import { toKeystrokes, LAYOUTS } from './keymap.js';
 import { STRINGS, defaultLang } from './i18n.js';
 
 const $ = (id) => document.getElementById(id);
-const DEFAULTS = { keyDelay: 15, lineDelay: 80, startDelay: 1, appendEnter: false, layout: 'us', lang: null };
+const DEFAULTS = {
+  keyDelay: 15,
+  lineDelay: 80,
+  startDelay: 1,
+  appendEnter: false,
+  layout: 'us',
+  lang: null,
+  keepConnected: true, // side panel only: stay attached between jobs
+  idleMinutes: 15, // side panel only: disconnect after this much idle time
+};
 const SEED_SNIPPETS = [
   { id: 's1', name: 'Linux: disk, memory, load', text: 'df -h; free -m; uptime' },
   { id: 's2', name: 'Linux: IPs and open ports', text: 'ip -br a; ss -tulpn' },
@@ -79,6 +88,8 @@ async function loadAll() {
   $('startDelay').value = settings.startDelay;
   $('appendEnter').checked = settings.appendEnter;
   $('layout').value = settings.layout;
+  if ($('keepConnected')) $('keepConnected').checked = settings.keepConnected;
+  if ($('idleMinutes')) $('idleMinutes').value = settings.idleMinutes;
   applyLang();
   renderSnippets();
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -98,6 +109,8 @@ function readSettings() {
     appendEnter: $('appendEnter').checked,
     layout: $('layout').value,
     lang,
+    keepConnected: $('keepConnected') ? $('keepConnected').checked : settings.keepConnected,
+    idleMinutes: $('idleMinutes') ? Math.max(1, num('idleMinutes', DEFAULTS.idleMinutes)) : settings.idleMinutes,
   };
   return settings;
 }
@@ -145,7 +158,9 @@ async function typeText(raw) {
   const text = opts.appendEnter ? raw + '\n' : raw;
   if (!raw && !opts.appendEnter) return setStatus(T().noText, 'err');
   setStatus(T().starting);
-  const res = await chrome.runtime.sendMessage({ cmd: 'type', tabId, text, opts });
+  // Only the side panel keeps the debugger attached between jobs; the popup attaches per job.
+  const sendOpts = { ...opts, session: IS_PANEL && opts.keepConnected };
+  const res = await chrome.runtime.sendMessage({ cmd: 'type', tabId, text, opts: sendOpts });
   if (res && res.ok) {
     if (IS_PANEL) refresh();
     else window.close();
@@ -153,6 +168,7 @@ async function typeText(raw) {
 }
 
 function showStatus(s) {
+  if ($('conn')) $('conn').hidden = !s.session;
   $('stop').hidden = !s.running;
   $('type').disabled = s.running;
   if (s.running) return setStatus(T().typing(s.done, s.total));
@@ -179,6 +195,13 @@ if ($('panel')) {
     if (winId == null) return setStatus(T().noTab, 'err');
     chrome.sidePanel.open({ windowId: winId });
     window.close();
+  };
+}
+if ($('disconnect')) {
+  $('disconnect').onclick = async () => {
+    await chrome.runtime.sendMessage({ cmd: 'disconnect' });
+    setStatus(T().disconnected, 'ok');
+    refresh();
   };
 }
 $('lang').onclick = async () => {
@@ -208,8 +231,18 @@ $('save').onclick = async () => {
   renderSnippets();
   setStatus(T().saved, 'ok');
 };
-for (const id of ['keyDelay', 'lineDelay', 'startDelay', 'appendEnter', 'layout']) {
-  $(id).addEventListener('change', () => chrome.storage.local.set({ settings: readSettings() }));
+for (const id of ['keyDelay', 'lineDelay', 'startDelay', 'appendEnter', 'layout', 'keepConnected', 'idleMinutes']) {
+  if ($(id)) $(id).addEventListener('change', () => chrome.storage.local.set({ settings: readSettings() }));
+}
+
+if (IS_PANEL) {
+  // While this panel is open, tell the background so it can end the session when the panel closes.
+  const connect = () => {
+    const port = chrome.runtime.connect({ name: 'panel' });
+    port.onDisconnect.addListener(() => setTimeout(connect, 500)); // service worker restarted
+  };
+  connect();
+  setInterval(() => chrome.runtime.sendMessage({ cmd: 'ping' }), 15000);
 }
 
 await loadAll();
