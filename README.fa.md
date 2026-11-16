@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/media/banner.jpg" width="760" alt="Remotype: type it where paste can't. تایپ متن در کنسول‌های وب vSphere، vCenter، noVNC و Proxmox.">
+</p>
+
 # Remotype (ریموتایپ)
 
 **آن‌جا که paste کار نمی‌کند، تایپ کن.** یک افزونه کوچک کروم که متن را **کلید به کلید** در کنسول‌های وب راه‌دور تایپ می‌کند: کنسول وب VMware vSphere و vCenter، noVNC (Proxmox و مشابه) و دیگر کنسول‌های مبتنی بر canvas که Ctrl+V در آن‌ها اثری ندارد.

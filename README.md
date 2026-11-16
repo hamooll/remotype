@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/media/banner.jpg" width="760" alt="Remotype: type it where paste can't. Types text into vSphere, vCenter, noVNC and Proxmox web consoles.">
+</p>
+
 # Remotype
 
 **Type it where paste can't.** A small Chrome extension that types text **key by key** into remote web consoles: the VMware vSphere / vCenter web console, noVNC (Proxmox and similar) and other canvas-based consoles where Ctrl+V does nothing.
