@@ -8,6 +8,7 @@
 
 [فارسی](README.fa.md) · [Usage guide](docs/usage.md) · [Compatibility](docs/compatibility.md) · [Troubleshooting](docs/troubleshooting.md) · [Changelog](CHANGELOG.md)
 
+[![Latest release](https://img.shields.io/github/v/release/hamooll/remotype)](https://github.com/hamooll/remotype/releases/latest)
 ![License: MIT](https://img.shields.io/badge/license-MIT-blue)
 ![Manifest V3](https://img.shields.io/badge/Chrome-Manifest%20V3-4285F4)
 ![No network](https://img.shields.io/badge/network-none-brightgreen)
@@ -45,11 +46,11 @@ Remotype is the human-in-the-loop answer for consoles such as the VMware vSphere
 
 ## Install
 
-From source (works today):
+Remotype is not on the Chrome Web Store yet, so you install it as an unpacked extension (about a minute):
 
-1. Download or clone this repository.
+1. **Download** the latest `remotype-vX.Y.Z.zip` from the [Releases page](https://github.com/hamooll/remotype/releases/latest) and **unzip it** into a folder you will keep. Chrome runs the extension from that folder, so do not delete or move it afterwards. (Or clone this repository.)
 2. Open `chrome://extensions` and turn on **Developer mode**.
-3. Click **Load unpacked** and choose this folder.
+3. Click **Load unpacked** and choose the unzipped folder.
 4. Pin the icon. Shortcuts: `Alt+Shift+K` opens the popup, `Alt+Shift+L` opens the side panel.
 
 Requires Chrome or a Chromium-based browser, version 116 or newer.
