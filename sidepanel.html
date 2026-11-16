@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="panel">
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="top">
+    <h1>Remotype</h1>
+    <button id="lang" class="small" title="Language / زبان">EN / فا</button>
+  </div>
+
+  <textarea id="text" dir="ltr" spellcheck="false" data-i18n-ph="placeholder"></textarea>
+  <div id="warn" class="warn" hidden></div>
+
+  <div class="row">
+    <button id="type" class="primary" data-i18n="type"></button>
+    <button id="stop" class="danger" hidden data-i18n="stop"></button>
+  </div>
+  <div id="status" class="status"></div>
+
+  <details id="snipBox" open>
+    <summary data-i18n="snippets"></summary>
+    <ul id="snips"></ul>
+    <div class="row">
+      <input id="snipName" data-i18n-ph="snipName" />
+      <button id="save" data-i18n="save"></button>
+    </div>
+    <div class="hint" data-i18n="saveHint"></div>
+  </details>
+
+  <details>
+    <summary data-i18n="settings"></summary>
+    <label><span data-i18n="layout"></span>
+      <select id="layout"></select>
+    </label>
+    <div id="layoutNote" class="hint"></div>
+    <label><span data-i18n="keyDelay"></span> <input id="keyDelay" type="number" min="0" max="500" /></label>
+    <label><span data-i18n="lineDelay"></span> <input id="lineDelay" type="number" min="0" max="3000" /></label>
+    <label><span data-i18n="startDelay"></span> <input id="startDelay" type="number" min="0" max="10" /></label>
+    <label class="chk"><input id="appendEnter" type="checkbox" /> <span data-i18n="appendEnter"></span></label>
+  </details>
+
+  <div class="hint" data-i18n="hint"></div>
+  <div class="hint" data-i18n="panelHint"></div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

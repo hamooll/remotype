@@ -1,0 +1,48 @@
+name: Bug report
+description: Something typed wrongly, did not type, or the extension misbehaved
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please do not include real hostnames, IP addresses or credentials. For security problems, use the private vulnerability reporting on the Security tab instead.
+  - type: input
+    id: console
+    attributes:
+      label: Console type and version
+      placeholder: vCenter 8.0 web console, Proxmox 8 noVNC, ...
+    validations:
+      required: true
+  - type: input
+    id: guest
+    attributes:
+      label: Guest OS and its keyboard layout
+      placeholder: Windows Server 2022, US layout
+    validations:
+      required: true
+  - type: dropdown
+    id: layout
+    attributes:
+      label: Layout selected in Remotype
+      options: [US, UK, German, French]
+    validations:
+      required: true
+  - type: input
+    id: chrome
+    attributes:
+      label: Chrome / Chromium version and OS
+      placeholder: Chrome 131 on Windows 11
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you type and what came out?
+      description: Paste a short example (no secrets) and show the wrong output.
+    validations:
+      required: true
+  - type: input
+    id: delay
+    attributes:
+      label: Delay settings used
+      placeholder: key delay 15 ms, pause after Enter 80 ms

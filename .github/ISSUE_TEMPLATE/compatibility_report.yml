@@ -1,0 +1,46 @@
+name: Compatibility report
+description: Tell us whether Remotype works with a console or layout
+labels: [compatibility]
+body:
+  - type: input
+    id: console
+    attributes:
+      label: Console type and version
+      placeholder: Proxmox VE 8 noVNC, IONOS KVM console, ESXi host client, ...
+    validations:
+      required: true
+  - type: input
+    id: guest
+    attributes:
+      label: Guest OS and keyboard layout
+    validations:
+      required: true
+  - type: dropdown
+    id: layout
+    attributes:
+      label: Layout selected in Remotype
+      options: [US, UK, German, French]
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and version
+      placeholder: Chrome 131, Edge 131, Brave
+    validations:
+      required: true
+  - type: dropdown
+    id: result
+    attributes:
+      label: Result
+      options:
+        - Works correctly
+        - Works with some wrong characters
+        - Does not work
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Which characters were wrong, settings you changed, anything unusual. No hostnames or credentials please.

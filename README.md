@@ -1,0 +1,123 @@
+# Remotype
+
+**Type it where paste can't.** A small Chrome extension that types text **key by key** into remote web consoles: the VMware vSphere / vCenter web console, noVNC (Proxmox and similar) and other canvas-based consoles where Ctrl+V does nothing.
+
+[فارسی](README.fa.md) · [Compatibility](docs/compatibility.md) · [Troubleshooting](docs/troubleshooting.md) · [Changelog](CHANGELOG.md)
+
+![License: MIT](https://img.shields.io/badge/license-MIT-blue)
+![Manifest V3](https://img.shields.io/badge/Chrome-Manifest%20V3-4285F4)
+![No network](https://img.shields.io/badge/network-none-brightgreen)
+
+## The problem
+
+Web consoles do not share your browser clipboard with the remote machine. They accept keyboard input only, so you cannot paste a long command, a token or a config line into a VM console, and typing it by hand is slow and error-prone.
+
+The usual fixes do not always work:
+
+- **vSphere:** forum threads report that copy/paste works in the full VM Remote Console but not in the web console, even after setting `isolation.tools.copy.disable` and `isolation.tools.paste.disable` to `FALSE`, and the change needs a VM restart. Many organisations disable console paste on purpose as a hardening measure.
+- **Proxmox / noVNC:** the clipboard needs a guest agent (for example `spice-agent`), and "text" and "keystrokes" are different things to a virtual machine.
+- **AutoHotkey / Tampermonkey scripts:** work, but need per-machine setup and break with browser updates.
+
+## What Remotype does
+
+You click inside the console, paste your text into Remotype and press **Type**. Remotype then sends every character as a real key press (including Shift and AltGr where your layout needs them), so the console treats it exactly like typing.
+
+## Features
+
+- Types commands, tokens and multi-line scripts into the focused console
+- Popup **or side panel**; the side panel stays open while you click around the console
+- Keyboard layouts: **US**, UK, German, French (UK, German and French are experimental)
+- Adjustable delay between keys, pause after Enter and start delay
+- Progress badge on the toolbar icon and a **Stop** button
+- Saved snippets with one-click typing
+- English and Persian interface
+- **No network access, no analytics, no host permissions.** Text you type is never stored; only snippets you save are kept locally
+
+## Install
+
+From source (works today):
+
+1. Download or clone this repository.
+2. Open `chrome://extensions` and turn on **Developer mode**.
+3. Click **Load unpacked** and choose this folder.
+4. Pin the icon. Shortcuts: `Alt+Shift+K` opens the popup, `Alt+Shift+L` opens the side panel.
+
+Requires Chrome or a Chromium-based browser, version 116 or newer.
+
+## Use
+
+1. Click inside the console so it has keyboard focus.
+2. Open Remotype, paste the text, choose the layout of the **target machine** and press **Type** (or Ctrl+Enter).
+
+The layout you choose must match the layout configured inside the remote machine. In the vSphere web console the **Enforce US Keyboard Layout** button forces US.
+
+## Keyboard layouts
+
+| Layout | Status |
+|---|---|
+| US (QWERTY) | Default. Confirmed by the author in the vCenter web console (see [compatibility](docs/compatibility.md)) |
+| UK, German (QWERTZ), French (AZERTY) | Experimental. AltGr characters depend on how the console translates the key |
+
+Dead keys (for example `^` and `´` on German, `^` and `¨` on French) are not supported. Characters that do not exist on the chosen layout are listed in a warning and skipped. Persian and other non-Latin text cannot be typed.
+
+## How it works
+
+For the duration of one typing job, Remotype attaches Chrome's debugger to the **active tab only** and sends `Input.dispatchKeyEvent` events for each key, then detaches. Chrome shows a *"started debugging this browser"* bar while this happens; that is expected. There are no content scripts and no host permissions, so Remotype can do nothing on a page until you press Type.
+
+## Compared with other tools
+
+Other extensions solve the same problem for specific consoles. This table only lists facts from their public listings (details and sources in [docs/competitor-notes.md](docs/competitor-notes.md)).
+
+| | Remotype | Paste to vSphere VM | KVM Console Paste | PVE Snippets |
+|---|---|---|---|---|
+| Main target | vSphere, noVNC, canvas consoles | vSphere | noVNC (Proxmox, IONOS, Plesk) | Proxmox noVNC |
+| Layouts | US, UK, DE, FR (3 experimental) | not documented | not documented | 11 layouts with dead keys |
+| Saved snippets | yes | not documented | not documented | yes (up to 200) |
+| Stop / progress | yes | not documented | yes | not documented |
+| Open source | yes (MIT) | not documented | not documented | not documented |
+
+Remotype is newer and less battle-tested than these. If one of them already works for your console, use it.
+
+## FAQ
+
+**Why does Ctrl+V not work in the vSphere web console?**
+The console is a remote display that only forwards keyboard events. Your browser clipboard is not shared unless VMware Tools and specific VM settings allow it, and that is often blocked by policy.
+
+**Does it work with Proxmox, noVNC, IONOS or Plesk consoles?**
+It sends standard keyboard events, so it should, but only the vCenter web console has been confirmed. Reports are welcome; see [compatibility](docs/compatibility.md).
+
+**Is it safe? Why does it need the debugger permission?**
+Sending trusted keyboard events to a canvas requires Chrome's debugger API. Remotype attaches only to the active tab while typing, has no host permissions, makes no network requests and the code is short enough to read in one sitting. See [SECURITY.md](SECURITY.md).
+
+**Why does Chrome show "started debugging this browser"?**
+That is Chrome's built-in notice whenever an extension uses the debugger. It disappears when typing finishes.
+
+**Can I type text in Persian, Arabic or other scripts?**
+No. Remotype sends physical keys of the chosen Latin layout, so only characters on that layout can be typed.
+
+**Does it work in Firefox?**
+No. It uses the Chrome debugger API.
+
+**Will it type my passwords?**
+It can, because it types whatever you give it. Nothing you type is stored. Do not save passwords as snippets.
+
+**Could this bypass my company's "no paste" policy?**
+Technically it types text the same way a person would. If paste is disabled on purpose, check that using Remotype is allowed in your environment.
+
+## Limitations
+
+- Very long text takes time, because it is typed key by key. Increase the delay if keys are dropped.
+- If DevTools is open on the same tab, the debugger cannot attach.
+- Not tested on every console and Chrome version.
+
+## Contributing
+
+Bug reports, console compatibility reports and new layouts are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md). Run the checks with:
+
+```
+node test-keymap.mjs
+```
+
+## License
+
+[MIT](LICENSE)
