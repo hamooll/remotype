@@ -8,7 +8,7 @@ Status meanings: **Confirmed** = someone typed text successfully and reported it
 
 | Console | Status | Notes |
 |---|---|---|
-| VMware vSphere / vCenter web console (HTML5) | **Confirmed** | Reported by the author: vCenter web console, Windows guest, US layout, text typed into the Windows search box. Chrome version was not recorded |
+| VMware vSphere / vCenter web console (HTML5) | **Confirmed** | Reported by the author: vCenter web console, Windows guest, US layout, text typed into the Windows search box, using both the popup and the side panel (v1.1.0). Chrome version was not recorded |
 | VMware ESXi host web console | Untested | |
 | Proxmox VE (noVNC) | Untested | |
 | noVNC standalone | Untested | |
