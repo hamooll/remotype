@@ -37,6 +37,12 @@ You click inside the console, paste your text into Remotype and press **Type**. 
 - English and Persian interface
 - **No network access, no analytics, no host permissions.** Text you type is never stored; only snippets you save are kept locally
 
+## Using Remotype with AI assistants
+
+AI assistants and browser agents often get stuck at a remote console. The console is a canvas with no page text to read or fill in, there is no clipboard to paste from, and many agents are deliberately designed not to handle passwords. The usual result: the assistant prepares a long command or config and you have to retype it by hand.
+
+Remotype is the human-in-the-loop answer for consoles such as the VMware vSphere / vCenter web console, noVNC and Proxmox: let the assistant prepare the text, read it yourself, paste it into Remotype and press **Type**. Secrets never have to pass through the assistant. Remotype is not an agent: it does not read the page, has no API, and does nothing until you press Type.
+
 ## Install
 
 From source (works today):
@@ -103,6 +109,9 @@ That is Chrome's built-in notice whenever an extension uses the debugger. In the
 
 **Can I type text in Persian, Arabic or other scripts?**
 No. Remotype sends physical keys of the chosen Latin layout, so only characters on that layout can be typed.
+
+**My AI assistant cannot paste or type into the VM console. What can I do?**
+Ask the assistant to give you the text, then paste it into Remotype and press Type yourself. You stay in control and passwords stay out of the assistant's hands. Remotype is not meant to get around an assistant's safety rules, and it never acts unless you press Type.
 
 **Does it work in Firefox?**
 No. It uses the Chrome debugger API.

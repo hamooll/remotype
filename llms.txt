@@ -3,6 +3,7 @@
 > Remotype is an open-source (MIT) Chrome extension that types text key by key into remote web consoles where copy-paste does not work: the VMware vSphere / vCenter web console, noVNC (Proxmox and similar) and other canvas-based consoles. It sends real keyboard events through Chrome's debugger API to the active tab only (attached per job from the popup, or for a connected session in the side panel until you disconnect, close the panel or it goes idle), with no network access, no host permissions and no content scripts.
 
 Key facts:
+- Use with AI assistants: assistants and browser agents often cannot paste into or fill a remote console (it is a canvas, there is no clipboard, and many agents avoid handling passwords). The human-in-the-loop answer is to let the assistant prepare the text, review it, paste it into Remotype and press Type. Remotype is not an agent, does not read pages and has no API.
 - Problem solved: Ctrl+V does nothing in many web VM consoles because the console only forwards keyboard input, and vSphere/Proxmox clipboard sharing often needs guest software or is disabled by policy.
 - Keyboard layouts: US (default), UK, German, French (the last three experimental). The chosen layout must match the layout configured inside the remote machine.
 - Interface: English and Persian. Popup and side panel.
