@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [Semantic Versioning](https://semver.org/).
 
+## [1.2.1]
+
+### Added
+- Extension icon (16, 32, 48 and 128 px, transparent background) shown in the toolbar and on `chrome://extensions`.
+- Test that every declared icon exists, is a PNG of the declared size and has an alpha channel.
+
 ## [1.2.0]
 
 ### Added

@@ -33,7 +33,7 @@ jobs:
           zip -r remotype-${GITHUB_REF_NAME}.zip \
             manifest.json background.js keymap.js i18n.js \
             popup.html popup.js popup.css sidepanel.html \
-            README.md README.fa.md LICENSE
+            README.md README.fa.md LICENSE icons
       - uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2.6.2
         with:
           files: remotype-*.zip

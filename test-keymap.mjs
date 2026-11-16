@@ -104,5 +104,18 @@ for (const f of ['README.md', 'README.fa.md', 'LICENSE', 'SECURITY.md', 'CONTRIB
 }
 check(!manifest.host_permissions && !manifest.content_scripts, 'no host permissions / content scripts');
 
+// ---- icons: every declared icon exists, is a PNG and has the declared size ----
+for (const [size, path] of Object.entries(manifest.icons || {})) {
+  let buf;
+  try { buf = readFileSync(new URL('./' + path, import.meta.url)); } catch { check(false, `missing icon ${path}`); continue; }
+  const isPng = buf.length > 24 && buf.subarray(1, 4).toString() === 'PNG';
+  check(isPng, `${path} is not a PNG`);
+  if (isPng) {
+    check(buf.readUInt32BE(16) === Number(size) && buf.readUInt32BE(20) === Number(size), `${path} must be ${size}x${size}`);
+    check(buf[25] === 6 || buf[25] === 4, `${path} must have an alpha channel (transparent background)`);
+  }
+}
+check(JSON.stringify(manifest.action.default_icon) === JSON.stringify(manifest.icons), 'action.default_icon matches icons');
+
 console.log(failed ?`${failed} check(s) failed` : 'all keymap checks passed');
 process.exit(failed ? 1 : 0);
