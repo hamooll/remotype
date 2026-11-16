@@ -4,7 +4,7 @@
 
 # Remotype
 
-**Type it where paste can't.** A small Chrome extension that types text **key by key** into remote web consoles: the VMware vSphere / vCenter web console, noVNC (Proxmox and similar) and other canvas-based consoles where Ctrl+V does nothing.
+**Type it where paste can't.** A small Chrome extension that types your text **as keystrokes**, key by key, into remote web consoles where copy and paste does not work: the VMware vSphere / vCenter web console, noVNC (Proxmox and similar) and other canvas-based VM consoles. Other keyboard-only web consoles (iDRAC, iLO, IPMI / KVM-over-IP) may work too but are untested.
 
 [فارسی](README.fa.md) · [Usage guide](docs/usage.md) · [Compatibility](docs/compatibility.md) · [Troubleshooting](docs/troubleshooting.md) · [Changelog](CHANGELOG.md)
 
@@ -96,6 +96,12 @@ Other extensions solve the same problem for specific consoles. This table only l
 Remotype is newer and less battle-tested than these. If one of them already works for your console, use it.
 
 ## FAQ
+
+**How do I copy and paste text into the vSphere / vCenter web console?**
+Install Remotype, click inside the console, paste your text into Remotype and press Type. It types the text as keystrokes, so it works even when the clipboard is not shared with the VM. Steps: [usage guide](docs/usage.md).
+
+**Is there an extension or script that types clipboard text as keystrokes into a VM console?**
+Yes, several exist, including Remotype and other open-source projects for vSphere, noVNC and Proxmox (listed in [docs/competitor-notes.md](docs/competitor-notes.md)). Remotype is a Chrome extension with a keyboard layout picker, a side panel, saved snippets and no host permissions.
 
 **Why does Ctrl+V not work in the vSphere web console?**
 The console is a remote display that only forwards keyboard events. Your browser clipboard is not shared unless VMware Tools and specific VM settings allow it, and that is often blocked by policy.

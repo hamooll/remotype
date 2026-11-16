@@ -14,6 +14,26 @@ Research done 2026-11-16 from public listings and forum threads. Chrome Web Stor
 | VM Console Extension (Chrome) | Proxmox | Paste into Proxmox console; mirrors show about 3.3 to 3.6 stars; no layout feature confirmed | [chromeboard](https://www.chromeboard.com/extension/vm-console-extension-mnkdipbaleabnmdhikbhnkennhldlmaf) |
 | VM Console Clipboard, PasteIt (Firefox) | vSphere, ESXi, Proxmox | Only seen through search snippets (pages did not load): floating panel, no VMware Tools needed; PasteIt emulates real keyboard events | [AMO](https://addons.mozilla.org/firefox/addon/vm-console-clipboard/), [AMO](https://addons.mozilla.org/es-ES/firefox/addon/pasteit/) |
 
+## Other open-source projects found on GitHub (search on 2026-11-16)
+
+The niche is crowded. Descriptions are the authors' own; none of these were reviewed or run.
+
+| Project | Description (shortened) |
+|---|---|
+| [adryd325/vcloud-copy-paste](https://github.com/adryd325/vcloud-copy-paste) | Converts text to keystrokes to allow copy-pasting in VMware vSphere's web client |
+| [unpaved028/ClipTyper](https://github.com/unpaved028/ClipTyper) | Types clipboard text as keystrokes where paste is not available: VM consoles (vSphere, Proxmox, Hyper-V), iDRAC/iLO and KVM-over-IP consoles |
+| [heydemar/vsphere-web-console-paste](https://github.com/heydemar/vsphere-web-console-paste) | vSphere web console paste |
+| [chenxuhua/vSphere-Paste](https://github.com/chenxuhua/vSphere-Paste) | vSphere paste |
+| [aggregate1166877/noVNC-Paste-Tool](https://github.com/aggregate1166877/noVNC-Paste-Tool) | Tool for pasting text into noVNC consoles |
+| [alew140/stupid-NoVNC-copy-paste](https://github.com/alew140/stupid-NoVNC-copy-paste) | Script that adds copy-paste to noVNC sessions, with special characters |
+| [cjpjxjx/pve-paste-input](https://github.com/cjpjxjx/pve-paste-input) | Text paste/input tool for the Proxmox VE noVNC console |
+| [Aut0iq/vm-console-paste](https://github.com/Aut0iq/vm-console-paste) | Paste clipboard into web VM consoles (Proxmox noVNC, xterm.js); Firefox/Zen port of VM Console Extension |
+| [MikeRzDev/OsxPaster](https://github.com/MikeRzDev/OsxPaster), [jordanlanham52/reticle](https://github.com/jordanlanham52/reticle), [Kingofthedivanich/SimplyPaste](https://github.com/Kingofthedivanich/SimplyPaste) | Desktop apps (macOS, Windows) that type the clipboard as keystrokes into VM consoles, web KVMs, RDP and BIOS screens |
+
+Words that recur in their descriptions, and are therefore what people search for: *paste*, *keystrokes*, *type clipboard*, *VM console*, *vSphere*, *noVNC*, *Proxmox*, *KVM-over-IP*, *iDRAC/iLO/IPMI*, *where Ctrl+V does not work*.
+
+Remotype's differences are practical rather than unique: Chrome extension using trusted debugger events, layout picker, side-panel session, snippets, English and Persian interface, no host permissions.
+
 ## Documented user problems
 
 - **Keyboard layouts are the most reported failure.** PVE Snippets reviews mention garbled output on an AZERTY keyboard and mixed-up text on German layouts (via [extscope](https://extscope.org/zh/extension/jampbpobgkkfoeiogobjlbhldkjgcfkg)). A Proxmox forum reply explains that text and keystrokes are different things, and that browsers do not all expose layout information ([Proxmox forum](https://forum.proxmox.com/threads/novnc-copy-paste-not-works.19773/latest)).
