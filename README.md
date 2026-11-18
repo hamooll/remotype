@@ -62,6 +62,8 @@ Requires Chrome or a Chromium-based browser, version 116 or newer.
 
 The layout you choose must match the layout configured inside the remote machine. In the vSphere web console the **Enforce US Keyboard Layout** button forces US.
 
+Console opens in its own popup window (common with vSphere/VNC)? Open Remotype from your main Chrome window and pick that window in the **Type into** list.
+
 Full guide (popup vs side panel, snippets, settings, session): [docs/usage.md](docs/usage.md), also in [Persian](docs/usage.fa.md).
 
 ## Keyboard layouts

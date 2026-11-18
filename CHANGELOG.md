@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [Semantic Versioning](https://semver.org/).
 
+## [1.3.0]
+
+### Added
+- "Type into" list in the toolbar popup and the side panel: choose another window, such as a console that opens in its own popup window, instead of only the active tab of the current window. In the side panel the chosen window is brought to the front. The list and a short hint appear only when another window is open, so users find the feature without reading the docs.
+
 ## [1.2.1]
 
 ### Added

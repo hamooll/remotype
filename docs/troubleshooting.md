@@ -33,6 +33,8 @@ If you want the bar to go away after every command, turn off "Stay connected whi
 
 The side panel types into the tab that is **active when you press Type**. Switch to the console tab first.
 
+If the console opened in its own popup window, open Remotype from your main window and choose that popup in the **Type into** list. See [Console in its own popup window](usage.md#console-in-its-own-popup-window).
+
 ## Paste is disabled on purpose in my company
 
 Remotype types text key by key, like a person would. If console paste is disabled by policy, make sure using Remotype is allowed in your environment.

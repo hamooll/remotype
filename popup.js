@@ -58,6 +58,7 @@ function applyLang() {
   sel.value = cur;
   updateLayoutNote();
   checkText();
+  refreshTargets(true);
 }
 
 function updateLayoutNote() {
@@ -95,6 +96,7 @@ async function loadAll() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   tabId = tab ? tab.id : null;
   winId = tab ? tab.windowId : null;
+  refreshTargets(true);
 }
 
 function readSettings() {
@@ -146,12 +148,57 @@ function renderSnippets() {
   }
 }
 
-async function typeText(raw) {
-  if (IS_PANEL) {
-    // The panel stays open while you switch tabs, so find the active tab again each time.
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    tabId = tab ? tab.id : null;
+// ---- target picker (side panel only): lets you type into a console that lives in its own popup window ----
+
+let targetSig = '';
+
+async function refreshTargets(force = false) {
+  const sel = $('target');
+  if (!sel) return;
+  const wins = await chrome.windows.getAll({ populate: true, windowTypes: ['normal', 'popup'] });
+  const others = wins.filter((w) => w.id !== winId && w.tabs && w.tabs.length);
+  const counts = { popup: 0, normal: 0 };
+  const items = others.map((w) => {
+    const kind = w.type === 'popup' ? 'popup' : 'normal';
+    const n = ++counts[kind];
+    const title = (w.tabs.find((t) => t.active) || w.tabs[0]).title; // only present if Chrome exposes it
+    const base = kind === 'popup' ? T().targetPopup : T().targetWindow;
+    return { value: 'w:' + w.id, label: `${base} ${n}` + (title ? `: ${title.slice(0, 40)}` : '') };
+  });
+  $('targetRow').hidden = !items.length;
+  if ($('targetHintBox')) $('targetHintBox').hidden = !items.length;
+  const sig = lang + JSON.stringify(items);
+  if (sig === targetSig && !force) return;
+  targetSig = sig;
+  const cur = sel.value || 'active';
+  sel.textContent = '';
+  for (const it of [{ value: 'active', label: T().targetActive }, ...items]) {
+    const o = document.createElement('option');
+    o.value = it.value;
+    o.textContent = it.label;
+    sel.append(o);
   }
+  sel.value = items.some((i) => i.value === cur) ? cur : 'active';
+}
+
+/** Resolve the tab to type into: the chosen window's active tab, else this window's active tab. */
+async function resolveTab() {
+  const sel = $('target');
+  if (sel && sel.value.startsWith('w:')) {
+    try {
+      const [tab] = await chrome.tabs.query({ active: true, windowId: Number(sel.value.slice(2)) });
+      if (tab) return tab.id;
+    } catch {}
+    sel.value = 'active'; // that window is gone
+  }
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  return tab ? tab.id : null;
+}
+
+async function typeText(raw) {
+  // The panel stays open while you switch tabs, and the target may be another window,
+  // so resolve the tab again each time.
+  if ($('target')) tabId = await resolveTab();
   if (tabId == null) return setStatus(T().noTab, 'err');
   const opts = readSettings();
   await chrome.storage.local.set({ settings: opts });
@@ -233,6 +280,23 @@ $('save').onclick = async () => {
 };
 for (const id of ['keyDelay', 'lineDelay', 'startDelay', 'appendEnter', 'layout', 'keepConnected', 'idleMinutes']) {
   if ($(id)) $(id).addEventListener('change', () => chrome.storage.local.set({ settings: readSettings() }));
+}
+
+if ($('target')) {
+  $('target').addEventListener('mousedown', () => refreshTargets());
+  $('target').addEventListener('change', async () => {
+    const v = $('target').value;
+    // Bring the chosen window to the front so it is obvious which one it is.
+    // (Not in the popup: it would lose focus and close before Type is pressed.)
+    if (IS_PANEL && v.startsWith('w:')) {
+      try {
+        await chrome.windows.update(Number(v.slice(2)), { focused: true });
+      } catch {}
+    }
+  });
+  chrome.windows.onCreated.addListener(() => refreshTargets());
+  chrome.windows.onRemoved.addListener(() => refreshTargets());
+  setInterval(refreshTargets, 2000);
 }
 
 if (IS_PANEL) {

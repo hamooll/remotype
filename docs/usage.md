@@ -51,6 +51,10 @@ In the side panel, the first **Type** connects Chrome's debugger to the tab and 
 - While connected, DevTools cannot be opened on the same tab.
 - To make the panel behave like the popup (attach per command), turn off **Stay connected while this panel is open** in Settings.
 
+## Console in its own popup window
+
+Some consoles (for example a vSphere/VNC console) open in a separate popup window. A popup window has no toolbar, so open Remotype from your **main** Chrome window (toolbar icon or side panel). When another window exists, a **Type into** list appears above the Type button, in both the popup and the side panel. Choose the console window there and press **Type**. In the side panel the chosen window is also brought to the front so you can see which one it is. Click inside the console once so it has focus.
+
 ## Settings
 
 | Setting | Default | What it does |
